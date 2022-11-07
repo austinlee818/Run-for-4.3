@@ -18,6 +18,6 @@ while True:
 
     screen.fill('black')
     level.run()
-    test_tile.draw(screen)
+
     pygame.display.update()
     clock.tick(60)

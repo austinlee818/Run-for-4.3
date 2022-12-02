@@ -2,13 +2,15 @@ import pygame
 from support import import_folder
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos):
+    def __init__(self, pos,surface,change_health):
         super().__init__()
         self.import_character_assets()
         self.frame_index = 0
         self.animation_speed = {'idle':0.05,'run':0.1,'jump':0.15,'fall':0.1}
         self.image = self.animations['idle'][self.frame_index]
         self.rect = self.image.get_rect(topleft = pos)
+
+        self.display_surface = surface
         
         self.direction = pygame.math.Vector2(0,0)
         self.speed = 8
@@ -21,6 +23,8 @@ class Player(pygame.sprite.Sprite):
         self.on_ceiling = False
         self.on_left = False
         self.on_right = False
+
+        self.change_health = change_health
 
     
     def get_status(self):
@@ -89,6 +93,9 @@ class Player(pygame.sprite.Sprite):
 
     def jump(self):
         self.direction.y = self.jump_speed
+
+    def get_damage(self):
+        self.change_health(-1)
 
     def update(self):
         self.get_input()
